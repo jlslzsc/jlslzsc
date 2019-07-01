@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-07-01T03:02:56.000Z</updated>
+  <updated>2019-07-01T12:44:46.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,93 +17,27 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>test</title>
-    <link href="http://yoursite.com/2019/07/01/%E6%B5%8B%E8%AF%95/"/>
-    <id>http://yoursite.com/2019/07/01/测试/</id>
-    <published>2019-07-01T02:27:12.000Z</published>
-    <updated>2019-07-01T03:02:56.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>asdasdassdasdas</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;asdasdassdasdas&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-      <category term="sss" scheme="http://yoursite.com/tags/sss/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>标签测试</title>
+    <title>枚举法</title>
     <link href="http://yoursite.com/2019/06/30/test/"/>
     <id>http://yoursite.com/2019/06/30/test/</id>
     <published>2019-06-30T10:12:30.000Z</published>
-    <updated>2019-07-01T02:35:56.000Z</updated>
+    <updated>2019-07-01T12:44:46.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="是"><a href="#是" class="headerlink" title="是"></a>是</h2><h1 id="嘟嘟嘟"><a href="#嘟嘟嘟" class="headerlink" title="嘟嘟嘟"></a>嘟嘟嘟</h1><h3 id="大的点点滴滴"><a href="#大的点点滴滴" class="headerlink" title="大的点点滴滴"></a>大的点点滴滴</h3><p>int main(){</p><p>}</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;是&quot;&gt;&lt;a href=&quot;#是&quot; class=&quot;headerlink&quot; title=&quot;是&quot;&gt;&lt;/a&gt;是&lt;/h2&gt;&lt;h1 id=&quot;嘟嘟嘟&quot;&gt;&lt;a href=&quot;#嘟嘟嘟&quot; class=&quot;headerlink&quot; title=&quot;嘟嘟嘟&quot;&gt;&lt;/a&gt;嘟嘟嘟&lt;/h1&gt;&lt;h3 id
-      
-    
-    </summary>
-    
-      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
-    
-    
-      <category term="Testing" scheme="http://yoursite.com/tags/Testing/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2019/06/29/hello-world/"/>
-    <id>http://yoursite.com/2019/06/29/hello-world/</id>
-    <published>2019-06-29T11:32:44.000Z</published>
-    <updated>2019-06-29T11:32:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="枚举法"><a href="#枚举法" class="headerlink" title="枚举法"></a>枚举法</h1><h2 id="输入-5-5-5-5-5-5"><a href="#输入-5-5-5-5-5-5" class="headerlink" title="输入 5 5 5 5 5 = 5"></a>输入 5 5 5 5 5 = 5</h2><h2 id="判断中间填什么，可以左右两边相等"><a href="#判断中间填什么，可以左右两边相等" class="headerlink" title="判断中间填什么，可以左右两边相等"></a>判断中间填什么，可以左右两边相等</h2><p>（```）</p><p>#include &lt;stdio.h&gt;<br>int main(){<br>    int j,i[5];<br>    int sign;<br>    int result;<br>    int count=0;<br>    int num[6];<br>    float left,right;<br>    char oper[5]={‘ ‘,’+’,’-‘,’*’,’/‘};<br>    printf(“输入5个数”);<br>    for ( j = 1; j &lt;=5; ++j) {<br>        scanf(“%d”,&amp;num[j]);</p><pre><code>}printf(&quot;请输入结果&quot;);scanf(&quot;%d&quot;,&amp;result);for ( i[1] = 1; i[1] &lt;=4 ; i[1]++) {    if((i[1]&lt;4)||(num2!=0))    {        for (i[2] = 1;  i[2]&lt;=4 ; i[2]++) {            if ((i[2]&lt;4)||(num[3])!=0){                for (i[3] = 1; i[3] &lt; 4; i[3]++) {                    if((i[3]&lt;4)||num[4]!=0){                        for (i[4] =1;  i[4]&lt;=4 ; i[4]++) {                            if((i[4]&lt;4)||num[5]!=0){                                left =0;                                right=num[1];                                sign=1;                                for (j =1;  j&lt;=4 ; j++) {                                    switch(oper[i[j]])                                    {                                        case &apos;+&apos;:                                            left=left+sign*right;                                            sign=1;                                            right=num[j+1];                                            break;                                        case &apos;-&apos;:                                            left=left+sign*right;                                            sign=-1;                                            right=num[j+1];                                            break;                                        case &apos;*&apos;:                                            right=right*num[j+1];                                            break;                                        case &apos;/&apos;:                                            right =right/num[j+1];                                            break;                                    }                                }                                if(left+sing*right == result)                                {                                    count++;                                    printf(&quot;%3d:&quot;,count);                                    for ( j = 0; j &lt;4 ; j++) {                                        printf(&quot;%d%c&quot;,num[j],oper[i[j]]);                                        printf(&quot;%d=%d\n&quot;,num[5],result);                                    }                                }                                }                        }                    }                }            }        }    }}</code></pre><p>}</p><p>(```)</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+        &lt;h1 id=&quot;枚举法&quot;&gt;&lt;a href=&quot;#枚举法&quot; class=&quot;headerlink&quot; title=&quot;枚举法&quot;&gt;&lt;/a&gt;枚举法&lt;/h1&gt;&lt;h2 id=&quot;输入-5-5-5-5-5-5&quot;&gt;&lt;a href=&quot;#输入-5-5-5-5-5-5&quot; class=&quot;headerlink&quot; 
       
     
     </summary>
     
+      <category term="C" scheme="http://yoursite.com/categories/C/"/>
     
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2019/06/29/hello-world%E7%9A%84%E5%89%AF%E6%9C%AC/"/>
-    <id>http://yoursite.com/2019/06/29/hello-world的副本/</id>
-    <published>2019-06-29T11:32:44.000Z</published>
-    <updated>2019-06-29T11:32:44.000Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-      
-    
-    </summary>
-    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
