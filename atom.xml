@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jlslzsc.github.io/"/>
-  <updated>2021-01-11T10:12:24.000Z</updated>
+  <updated>2021-01-14T09:06:22.000Z</updated>
   <id>http://jlslzsc.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>多线程创建方式</title>
+    <link href="http://jlslzsc.github.io/2021/01/14/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F/"/>
+    <id>http://jlslzsc.github.io/2021/01/14/多线程创建方式/</id>
+    <published>2021-01-14T09:02:54.000Z</published>
+    <updated>2021-01-14T09:06:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-继承Thread类"><a href="#1-继承Thread类" class="headerlink" title="1 继承Thread类"></a>1 继承Thread类</h2><p>①定义子类继承Thread类。</p><p>②子类中重写Thread类中的run方法。</p><p>③创建Thread子类对象，即创建了线程对象。</p><p>④调用线程对象start方法启动线程，默认调用run方法。</p><p>注意：如果只是调用run方法，则此时会在调用该方法的线程中来执行，而不是另启动一个线程。</p><h2 id="2-实现Runnable接口"><a href="#2-实现Runnable接口" class="headerlink" title="2 实现Runnable接口"></a>2 实现Runnable接口</h2><p>①定义子类，实现Runnable接口。</p><p>②子类中重写Runnable接口中的run方法。</p><p>③通过Thread类含参构造器创建线程对象，将Runnable接口的子类对象作为实际参数传递给</p><p>   Thread类的构造方法中。</p><p>④调用Thread类的start方法启动线程，其最终调用Runnable子类接口的run方法。</p><p>两种方式的区别：</p><p>继承Thread:线程代码存放Thread子类run方法中。</p><p>实现Runnable：线程代码存在接口的子类的run方法中。</p><p>实现Runnable接口避免了单继承的局限性，多个线程可以共享同一个接口子类的对象，非常适合多个相同线程来处理同一份资源。</p><p><strong>优先使用实现接口的方式!</strong></p><h2 id="3-使用Callable接口"><a href="#3-使用Callable接口" class="headerlink" title="3 使用Callable接口"></a>3 使用Callable接口</h2><p>​    Callable接口作为JDK1.5新增的接口，与使用Runnable相比其功能更强大些。</p><p>l 相比run()方法，可以有返回值</p><p>l 方法可以抛出异常</p><p>l 支持泛型的返回值</p><p>l 需要借助FutureTask类，比如获取返回结果。</p><p>Callable接口一般用于配合ExecutorService使用。</p><p>l 可以对具体Runnable、Callable任务的执行结果进行取消、查询是否完成、获取结果等。</p><p>l FutrueTask是Futrue接口的实现类</p><p>l FutureTask 同时实现了Runnable, Future接口。它既可以作为Runnable被线程执行，又可以作为Future得到Callable的返回值。</p><p>l 多个线程同时执行一个FutureTask，只要一个线程执行完毕，其他线程不会再执行其call()方法。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">System.out.println(Thread.currentThread().getName()+<span class="string">" Come in call"</span>);</span><br><span class="line"><span class="comment">//睡5秒</span></span><br><span class="line">TimeUnit.SECONDS.sleep(<span class="number">5</span>);</span><br><span class="line"><span class="comment">//返回200的状态码</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">200</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CallableTest</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException </span>&#123;</span><br><span class="line">MyThread myThread = <span class="keyword">new</span> MyThread();</span><br><span class="line">FutureTask&lt;Integer&gt; futureTask = <span class="keyword">new</span> FutureTask&lt;&gt;(myThread);</span><br><span class="line"><span class="keyword">new</span> Thread(futureTask, <span class="string">"未来任务"</span>).start();</span><br><span class="line">        System.out.println(<span class="string">"主线程结束！"</span>);</span><br><span class="line">Integer integer = futureTask.get();</span><br><span class="line">System.out.println(integer);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1-继承Thread类&quot;&gt;&lt;a href=&quot;#1-继承Thread类&quot; class=&quot;headerlink&quot; title=&quot;1 继承Thread类&quot;&gt;&lt;/a&gt;1 继承Thread类&lt;/h2&gt;&lt;p&gt;①定义子类继承Thread类。&lt;/p&gt;
+&lt;p&gt;②子类中重写Threa
+      
+    
+    </summary>
+    
+      <category term="java" scheme="http://jlslzsc.github.io/categories/java/"/>
+    
+    
+      <category term="多线程" scheme="http://jlslzsc.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>scrapy相关配置使用</title>

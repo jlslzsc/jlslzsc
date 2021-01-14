@@ -278,6 +278,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jlslzsc.github.io/2021/01/14/多线程创建方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhou ShuCheng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冷眸">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/01/14/多线程创建方式/" itemprop="url">多线程创建方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-14T17:02:54+08:00">
+                2021-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-继承Thread类"><a href="#1-继承Thread类" class="headerlink" title="1 继承Thread类"></a>1 继承Thread类</h2><p>①定义子类继承Thread类。</p>
+<p>②子类中重写Thread类中的run方法。</p>
+<p>③创建Thread子类对象，即创建了线程对象。</p>
+<p>④调用线程对象start方法启动线程，默认调用run方法。</p>
+<p>注意：如果只是调用run方法，则此时会在调用该方法的线程中来执行，而不是另启动一个线程。</p>
+<h2 id="2-实现Runnable接口"><a href="#2-实现Runnable接口" class="headerlink" title="2 实现Runnable接口"></a>2 实现Runnable接口</h2><p>①定义子类，实现Runnable接口。</p>
+<p>②子类中重写Runnable接口中的run方法。</p>
+<p>③通过Thread类含参构造器创建线程对象，将Runnable接口的子类对象作为实际参数传递给</p>
+<p>   Thread类的构造方法中。</p>
+<p>④调用Thread类的start方法启动线程，其最终调用Runnable子类接口的run方法。</p>
+<p>两种方式的区别：</p>
+<p>继承Thread:线程代码存放Thread子类run方法中。</p>
+<p>实现Runnable：线程代码存在接口的子类的run方法中。</p>
+<p>实现Runnable接口避免了单继承的局限性，多个线程可以共享同一个接口子类的对象，非常适合多个相同线程来处理同一份资源。</p>
+<p><strong>优先使用实现接口的方式!</strong></p>
+<h2 id="3-使用Callable接口"><a href="#3-使用Callable接口" class="headerlink" title="3 使用Callable接口"></a>3 使用Callable接口</h2><p>​    Callable接口作为JDK1.5新增的接口，与使用Runnable相比其功能更强大些。</p>
+<p>l 相比run()方法，可以有返回值</p>
+<p>l 方法可以抛出异常</p>
+<p>l 支持泛型的返回值</p>
+<p>l 需要借助FutureTask类，比如获取返回结果。</p>
+<p>Callable接口一般用于配合ExecutorService使用。</p>
+<p>l 可以对具体Runnable、Callable任务的执行结果进行取消、查询是否完成、获取结果等。</p>
+<p>l FutrueTask是Futrue接口的实现类</p>
+<p>l FutureTask 同时实现了Runnable, Future接口。它既可以作为Runnable被线程执行，又可以作为Future得到Callable的返回值。</p>
+<p>l 多个线程同时执行一个FutureTask，只要一个线程执行完毕，其他线程不会再执行其call()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		System.out.println(Thread.currentThread().getName()+<span class="string">" Come in call"</span>);</span><br><span class="line">		<span class="comment">//睡5秒</span></span><br><span class="line">		TimeUnit.SECONDS.sleep(<span class="number">5</span>);</span><br><span class="line">		<span class="comment">//返回200的状态码</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">200</span>;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CallableTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException </span>&#123;</span><br><span class="line">		MyThread myThread = <span class="keyword">new</span> MyThread();</span><br><span class="line">		FutureTask&lt;Integer&gt; futureTask = <span class="keyword">new</span> FutureTask&lt;&gt;(myThread);</span><br><span class="line">		<span class="keyword">new</span> Thread(futureTask, <span class="string">"未来任务"</span>).start();</span><br><span class="line">        System.out.println(<span class="string">"主线程结束！"</span>);</span><br><span class="line">		Integer integer = futureTask.get();</span><br><span class="line">		System.out.println(integer);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://jlslzsc.github.io/2019/09/22/scrapy相关配置使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1846,186 +2016,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jlslzsc.github.io/2019/09/22/正则与XPATH/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhou ShuCheng">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="冷眸">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/22/正则与XPATH/" itemprop="url">正则与XPATH</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-22T14:19:28+08:00">
-                2019-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/爬虫/" itemprop="url" rel="index">
-                    <span itemprop="name">爬虫</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="正则使用的注意点"><a href="#正则使用的注意点" class="headerlink" title="正则使用的注意点"></a>正则使用的注意点</h3><ul>
-<li><code>re.findall(&quot;a(.*?)b&quot;,&quot;str&quot;)</code>,能够返回括号中的内容,括号前后的内容起到定位和过滤的效果</li>
-<li>原始字符串r，待匹配字符串中有反斜杠的时候，使用r能够忽视反斜杠带来的转义的效果</li>
-<li>点号默认情况匹配不到<code>\n</code></li>
-<li><code>\s</code>能够匹配空白字符，不仅仅包含空格，还有<code>\t|\r\n</code></li>
-</ul>
-<h3 id="xpath学习重点"><a href="#xpath学习重点" class="headerlink" title="xpath学习重点"></a>xpath学习重点</h3><ul>
-<li>使用xpath helper或者是chrome中的copy xpath都是从element中提取的数据，但是爬虫获取的是url对应的响应，往往和elements不一样</li>
-<li>获取文本<ul>
-<li><code>a/text()</code> 获取a下的文本</li>
-<li><code>a//text()</code> 获取a下的所有标签的文本</li>
-<li><code>//a[text()=&#39;下一页&#39;]</code> 选择文本为下一页三个字的a标签</li>
-</ul>
-</li>
-<li><code>@符号</code><ul>
-<li><code>a/@href</code></li>
-<li><code>//ul[@id=&quot;detail-list&quot;]</code></li>
-</ul>
-</li>
-<li><code>//</code><ul>
-<li>在xpath最前面表示从当前html中任意位置开始选择</li>
-<li><code>li//a</code> 表示的是li下任何一个标签</li>
-</ul>
-</li>
-</ul>
-<h3 id="lxml使用注意点"><a href="#lxml使用注意点" class="headerlink" title="lxml使用注意点"></a>lxml使用注意点</h3><ul>
-<li>lxml能够修正HTML代码，但是可能会改错了<ul>
-<li>使用etree.tostring观察修改之后的html的样子，根据修改之后的html字符串写xpath</li>
-</ul>
-</li>
-<li>lxml 能够接受bytes和str的字符串</li>
-<li>提取页面数据的思路<ul>
-<li>先分组，渠道一个包含分组标签的列表</li>
-<li>遍历，取其中每一组进行数据的提取，不会造成数据的对应错乱</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2076,7 +2066,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2098,7 +2088,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2203,7 +2193,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共4.1k字</span>
+  <span class="post-count">博客全站共4.7k字</span>
 </div>
 
 
