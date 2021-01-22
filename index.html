@@ -482,6 +482,46 @@
 <li>在hadoop102启动历史服务器</li>
 </ol>
 <p>mr-jobhistory-daemon.sh start historyserver</p>
+<h2 id="6、时间服务器配置（必须root用户）"><a href="#6、时间服务器配置（必须root用户）" class="headerlink" title="6、时间服务器配置（必须root用户）"></a>6、时间服务器配置（必须root用户）</h2><p>（1）在所有节点关闭ntp服务和自启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop ntpd</span><br><span class="line"></span><br><span class="line">systemctl disable ntpd</span><br></pre></td></tr></table></figure>
+
+<p>（2）修改ntp配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ntp.conf</span><br></pre></td></tr></table></figure>
+
+<p>修改内容如下</p>
+<p>a）修改1（授权192.168.1.0-192.168.1.255网段上的所有机器可以从这台机器上查询和同步时间）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\#restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap为restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap</span><br></pre></td></tr></table></figure>
+
+<p>​        b）修改2（集群在局域网中，不使用其他互联网上的时间）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">server 0.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">server 1.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">server 2.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">server 3.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">为</span><br><span class="line"></span><br><span class="line">***\*#\****server 0.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">***\*#\****server 1.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">***\*#\****server 2.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">***\*#\****server 3.centos.pool.ntp.org iburst</span><br></pre></td></tr></table></figure>
+
+<p>c）添加3（当该节点丢失网络连接，依然可以采用本地时间作为时间服务器为集群中的其他节点提供时间同步）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server 127.127.1.0</span><br><span class="line"></span><br><span class="line">fudge 127.127.1.0 stratum 10</span><br></pre></td></tr></table></figure>
+
+<p>（3）修改/etc/sysconfig/ntpd 文件</p>
+<p>vim /etc/sysconfig/ntpd</p>
+<p>增加内容如下（让硬件时间与系统时间一起同步）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SYNC_HWCLOCK=yes</span><br></pre></td></tr></table></figure>
+
+<p>（4）重新启动ntpd服务</p>
+<p>systemctl start ntpd</p>
+<p>（5）设置ntpd服务开机启动</p>
+<p>systemctl enable ntpd</p>
+<ol start="2">
+<li>其他机器配置（必须root用户）</li>
+</ol>
+<p>（1）在其他机器配置10分钟与时间服务器同步一次</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+
+<p>编写定时任务如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * /usr/sbin/ntpdate hadoop101</span><br></pre></td></tr></table></figure>
+
+<p>（2）修改任意机器时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date -s "2017-9-11 11:11:11"</span><br></pre></td></tr></table></figure>
+
+<p>（3）十分钟后查看机器是否与时间服务器同步</p>
+<p>date</p>
+<p>说明：测试的时候可以将10分钟调整为1分钟，节省时间。</p>
 
           
         
@@ -2198,7 +2238,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共5.8k字</span>
+  <span class="post-count">博客全站共6.3k字</span>
 </div>
 
 

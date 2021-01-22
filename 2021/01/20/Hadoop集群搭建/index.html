@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="冷眸">
 <meta property="og:description" content="1、xsync脚本文件在/usr/local/bin 目录下创建 xsync 文件 12345678910111213141516171819202122232425262728#!/bin/bash#1 获取输入参数个数，如果没有参数，直接退出pcount=$#if((pcount==0)); thenecho no args;exit;fi#2 获取文件名称p1=$1fname=`basena">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-01-20T16:08:46.000Z">
+<meta property="og:updated_time" content="2021-01-22T12:09:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop集群搭建">
 <meta name="twitter:description" content="1、xsync脚本文件在/usr/local/bin 目录下创建 xsync 文件 12345678910111213141516171819202122232425262728#!/bin/bash#1 获取输入参数个数，如果没有参数，直接退出pcount=$#if((pcount==0)); thenecho no args;exit;fi#2 获取文件名称p1=$1fname=`basena">
@@ -479,6 +479,46 @@
 <li>在hadoop102启动历史服务器</li>
 </ol>
 <p>mr-jobhistory-daemon.sh start historyserver</p>
+<h2 id="6、时间服务器配置（必须root用户）"><a href="#6、时间服务器配置（必须root用户）" class="headerlink" title="6、时间服务器配置（必须root用户）"></a>6、时间服务器配置（必须root用户）</h2><p>（1）在所有节点关闭ntp服务和自启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop ntpd</span><br><span class="line"></span><br><span class="line">systemctl disable ntpd</span><br></pre></td></tr></table></figure>
+
+<p>（2）修改ntp配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ntp.conf</span><br></pre></td></tr></table></figure>
+
+<p>修改内容如下</p>
+<p>a）修改1（授权192.168.1.0-192.168.1.255网段上的所有机器可以从这台机器上查询和同步时间）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\#restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap为restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap</span><br></pre></td></tr></table></figure>
+
+<p>​        b）修改2（集群在局域网中，不使用其他互联网上的时间）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">server 0.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">server 1.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">server 2.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">server 3.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">为</span><br><span class="line"></span><br><span class="line">***\*#\****server 0.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">***\*#\****server 1.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">***\*#\****server 2.centos.pool.ntp.org iburst</span><br><span class="line"></span><br><span class="line">***\*#\****server 3.centos.pool.ntp.org iburst</span><br></pre></td></tr></table></figure>
+
+<p>c）添加3（当该节点丢失网络连接，依然可以采用本地时间作为时间服务器为集群中的其他节点提供时间同步）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server 127.127.1.0</span><br><span class="line"></span><br><span class="line">fudge 127.127.1.0 stratum 10</span><br></pre></td></tr></table></figure>
+
+<p>（3）修改/etc/sysconfig/ntpd 文件</p>
+<p>vim /etc/sysconfig/ntpd</p>
+<p>增加内容如下（让硬件时间与系统时间一起同步）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SYNC_HWCLOCK=yes</span><br></pre></td></tr></table></figure>
+
+<p>（4）重新启动ntpd服务</p>
+<p>systemctl start ntpd</p>
+<p>（5）设置ntpd服务开机启动</p>
+<p>systemctl enable ntpd</p>
+<ol start="2">
+<li>其他机器配置（必须root用户）</li>
+</ol>
+<p>（1）在其他机器配置10分钟与时间服务器同步一次</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+
+<p>编写定时任务如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * /usr/sbin/ntpdate hadoop101</span><br></pre></td></tr></table></figure>
+
+<p>（2）修改任意机器时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date -s "2017-9-11 11:11:11"</span><br></pre></td></tr></table></figure>
+
+<p>（3）十分钟后查看机器是否与时间服务器同步</p>
+<p>date</p>
+<p>说明：测试的时候可以将10分钟调整为1分钟，节省时间。</p>
 
       
     </div>
@@ -698,7 +738,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、xsync脚本文件"><span class="nav-number">1.</span> <span class="nav-text">1、xsync脚本文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、ssh无密登录"><span class="nav-number">2.</span> <span class="nav-text">2、ssh无密登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、集群配置"><span class="nav-number">3.</span> <span class="nav-text">3、集群配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、集群单点启动"><span class="nav-number">4.</span> <span class="nav-text">4、集群单点启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、配置历史服务器"><span class="nav-number">5.</span> <span class="nav-text">5、配置历史服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-配置mapred-site-xml"><span class="nav-number">5.0.1.</span> <span class="nav-text">1.    配置mapred-site.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2配置日志的聚集"><span class="nav-number">5.0.2.</span> <span class="nav-text">2配置日志的聚集</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、xsync脚本文件"><span class="nav-number">1.</span> <span class="nav-text">1、xsync脚本文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、ssh无密登录"><span class="nav-number">2.</span> <span class="nav-text">2、ssh无密登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、集群配置"><span class="nav-number">3.</span> <span class="nav-text">3、集群配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、集群单点启动"><span class="nav-number">4.</span> <span class="nav-text">4、集群单点启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、配置历史服务器"><span class="nav-number">5.</span> <span class="nav-text">5、配置历史服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-配置mapred-site-xml"><span class="nav-number">5.0.1.</span> <span class="nav-text">1.    配置mapred-site.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2配置日志的聚集"><span class="nav-number">5.0.2.</span> <span class="nav-text">2配置日志的聚集</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#6、时间服务器配置（必须root用户）"><span class="nav-number">6.</span> <span class="nav-text">6、时间服务器配置（必须root用户）</span></a></li></div>
             
 
           </div>
@@ -745,7 +785,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共5.8k字</span>
+  <span class="post-count">博客全站共6.3k字</span>
 </div>
 
 
