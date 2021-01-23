@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基本命令,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="冷眸" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1、常用命令实操（0）启动Hadoop集群（方便后续的测试） 123[atguigu@hadoop102 hadoop-3.1.3]$ sbin/start-dfs.sh[atguigu@hadoop103 hadoop-3.1.3]$ sbin/start-yarn.sh  （1）-help：输出这个命令参数 1[atguigu@hadoop102 hadoop-3.1.3]$ hadoop f">
+<meta name="keywords" content="基本命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdfs基本操作">
+<meta property="og:url" content="http://jlslzsc.github.io/2021/01/23/hdfs基本操作/index.html">
+<meta property="og:site_name" content="冷眸">
+<meta property="og:description" content="1、常用命令实操（0）启动Hadoop集群（方便后续的测试） 123[atguigu@hadoop102 hadoop-3.1.3]$ sbin/start-dfs.sh[atguigu@hadoop103 hadoop-3.1.3]$ sbin/start-yarn.sh  （1）-help：输出这个命令参数 1[atguigu@hadoop102 hadoop-3.1.3]$ hadoop f">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-01-23T14:32:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hdfs基本操作">
+<meta name="twitter:description" content="1、常用命令实操（0）启动Hadoop集群（方便后续的测试） 123[atguigu@hadoop102 hadoop-3.1.3]$ sbin/start-dfs.sh[atguigu@hadoop103 hadoop-3.1.3]$ sbin/start-yarn.sh  （1）-help：输出这个命令参数 1[atguigu@hadoop102 hadoop-3.1.3]$ hadoop f">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jlslzsc.github.io/2021/01/23/hdfs基本操作/">
+
+
+
+
+
+  <title>hdfs基本操作 | 冷眸</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>      <a href="https://jlslzsc.github.io" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">冷眸</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">丞</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jlslzsc.github.io/2021/01/23/hdfs基本操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhou ShuCheng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冷眸">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">hdfs基本操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-23T22:17:16+08:00">
+                2021-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1、常用命令实操"><a href="#1、常用命令实操" class="headerlink" title="1、常用命令实操"></a>1、常用命令实操</h1><p>（0）启动Hadoop集群（方便后续的测试）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ sbin/start-dfs.sh</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop103 hadoop-3.1.3]$ sbin/start-yarn.sh</span><br></pre></td></tr></table></figure>
+
+<p>（1）-help：输出这个命令参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -help rm</span><br></pre></td></tr></table></figure>
+
+<p>（2）-ls: 显示目录信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -ls /</span><br></pre></td></tr></table></figure>
+
+<p>（3）-mkdir：在HDFS上创建目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -mkdir -p /sanguo/shuguo</span><br></pre></td></tr></table></figure>
+
+<p>（4）-moveFromLocal：从本地剪切粘贴到HDFS</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ touch kongming.txt</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs  -moveFromLocal  ./kongming.txt  /sanguo/shuguo</span><br></pre></td></tr></table></figure>
+
+<p>（5）-appendToFile：追加一个文件到已经存在的文件末尾</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ touch liubei.txt</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ vi liubei.txt</span><br></pre></td></tr></table></figure>
+
+<p>输入</p>
+<p>san gu mao lu</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -appendToFile liubei.txt /sanguo/shuguo/kongming.txt</span><br></pre></td></tr></table></figure>
+
+<p>（6）-cat：显示文件内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -cat /sanguo/shuguo/kongming.txt</span><br></pre></td></tr></table></figure>
+
+<p>（7）-chgrp 、-chmod、-chown：Linux文件系统中的用法一样，修改文件所属权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs  -chmod  666  /sanguo/shuguo/kongming.txt</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs  -chown  atguigu:atguigu  /sanguo/shuguo/kongming.txt</span><br></pre></td></tr></table></figure>
+
+<p>（8）-copyFromLocal：从本地文件系统中拷贝文件到HDFS路径去</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -copyFromLocal README.txt /</span><br></pre></td></tr></table></figure>
+
+<p>（9）-copyToLocal：从HDFS拷贝到本地</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -copyToLocal /sanguo/shuguo/kongming.txt ./</span><br></pre></td></tr></table></figure>
+
+<p>（10）-cp ：从HDFS的一个路径拷贝到HDFS的另一个路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -cp /sanguo/shuguo/kongming.txt /zhuge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（11）-mv：在HDFS目录中移动文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -mv /zhuge.txt /sanguo/shuguo/</span><br></pre></td></tr></table></figure>
+
+<p>（12）-get：等同于copyToLocal，就是从HDFS下载文件到本地</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -get /sanguo/shuguo/kongming.txt ./</span><br></pre></td></tr></table></figure>
+
+<p>（13）-getmerge：合并下载多个文件，比如HDFS的目录 /user/atguigu/test下有多个文件:log.1, log.2,log.3,…</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -getmerge /user/atguigu/test/* ./zaiyiqi.txt</span><br></pre></td></tr></table></figure>
+
+<p>（14）-put：等同于copyFromLocal</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -put ./zaiyiqi.txt /user/atguigu/test/</span><br></pre></td></tr></table></figure>
+
+<p>（15）-tail：显示一个文件的末尾</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -tail /sanguo/shuguo/kongming.txt</span><br></pre></td></tr></table></figure>
+
+<p>（16）-rm：删除文件或文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -rm /user/atguigu/test/jinlian2.txt</span><br></pre></td></tr></table></figure>
+
+<p>（17）-rmdir：删除空目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -mkdir /test</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -rmdir /test</span><br></pre></td></tr></table></figure>
+
+<p>（18）-du统计文件夹的大小信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -du -s -h /user/atguigu/test</span><br></pre></td></tr></table></figure>
+
+<p>2.7 K  /user/atguigu/test </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -du  -h /user/atguigu/test</span><br></pre></td></tr></table></figure>
+
+<p>1.3 K  /user/atguigu/test/README.txt</p>
+<p>15   /user/atguigu/test/jinlian.txt</p>
+<p>1.4 K  /user/atguigu/test/zaiyiqi.txt</p>
+<p>（19）-setrep：设置HDFS中文件的副本数量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -setrep 10 /sanguo/shuguo/kongming.txt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>本地-》HDFS<br>    put<br>    copyFromLocal<br>    moveFromLocal<br>    appendToFile<br>HDFS-》HDFS<br>    cp<br>    mv<br>    chown<br>    chgrp<br>    chmod<br>    mkdir<br>    du<br>    df<br>    cat<br>    rm</p>
+<p>HDFS-》本地<br>    get<br>    getmerge<br>    copyToLocal</p>
+</blockquote>
+<h1 id="2、HDFS的API操作"><a href="#2、HDFS的API操作" class="headerlink" title="2、HDFS的API操作"></a>2、HDFS的API操作</h1><h2 id="2-1上传"><a href="#2-1上传" class="headerlink" title="2.1上传"></a>2.1上传</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCopyFromLocalFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException, URISyntaxException </span>&#123;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 1 获取文件系统</span></span><br><span class="line"></span><br><span class="line">​		Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">​		configuration.set(<span class="string">"dfs.replication"</span>, <span class="string">"2"</span>);</span><br><span class="line"></span><br><span class="line">​		FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop102:8020"</span>), configuration, <span class="string">"atguigu"</span>);</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 2 上传文件</span></span><br><span class="line"></span><br><span class="line">​		fs.copyFromLocalFile(<span class="keyword">new</span> Path(<span class="string">"e:/banzhang.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"/banzhang.txt"</span>));</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 3 关闭资源</span></span><br><span class="line"></span><br><span class="line">​		fs.close();</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​		System.out.println(<span class="string">"over"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2下载"><a href="#2-2下载" class="headerlink" title="2.2下载"></a>2.2下载</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCopyToLocalFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException, URISyntaxException</span>&#123;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 1 获取文件系统</span></span><br><span class="line"></span><br><span class="line">​		Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">​		FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop102:8020"</span>), configuration, <span class="string">"atguigu"</span>);</span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 2 执行下载操作</span></span><br><span class="line"></span><br><span class="line">​		<span class="comment">// boolean delSrc 指是否将原文件删除</span></span><br><span class="line"></span><br><span class="line">​		<span class="comment">// Path src 指要下载的文件路径</span></span><br><span class="line"></span><br><span class="line">​		<span class="comment">// Path dst 指将文件下载到的路径</span></span><br><span class="line"></span><br><span class="line">​		<span class="comment">// boolean useRawLocalFileSystem 是否开启文件校验</span></span><br><span class="line"></span><br><span class="line">​		fs.copyToLocalFile(<span class="keyword">false</span>, <span class="keyword">new</span> Path(<span class="string">"/banzhang.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"e:/banhua.txt"</span>), <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 3 关闭资源</span></span><br><span class="line"></span><br><span class="line">​		fs.close();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3删除"><a href="#2-3删除" class="headerlink" title="2.3删除"></a>2.3删除</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDelete</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException, URISyntaxException</span>&#123;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 1 获取文件系统</span></span><br><span class="line"></span><br><span class="line">​	Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">​	FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop102:8020"</span>), configuration, <span class="string">"atguigu"</span>);</span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 2 执行删除</span></span><br><span class="line"></span><br><span class="line">​	fs.delete(<span class="keyword">new</span> Path(<span class="string">"/0508/"</span>), <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 3 关闭资源</span></span><br><span class="line"></span><br><span class="line">​	fs.close();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4文件名修改"><a href="#2-4文件名修改" class="headerlink" title="2.4文件名修改"></a>2.4文件名修改</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testRename</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException, URISyntaxException</span>&#123;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 1 获取文件系统</span></span><br><span class="line"></span><br><span class="line">​	Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">​	FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop102:8020"</span>), configuration, <span class="string">"atguigu"</span>); </span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 2 修改文件名称</span></span><br><span class="line"></span><br><span class="line">​	fs.rename(<span class="keyword">new</span> Path(<span class="string">"/banzhang.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"/banhua.txt"</span>));</span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 3 关闭资源</span></span><br><span class="line"></span><br><span class="line">​	fs.close();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-5查看文件和文件夹"><a href="#2-5查看文件和文件夹" class="headerlink" title="2.5查看文件和文件夹"></a>2.5查看文件和文件夹</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ls</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    FileStatus[] fileStatuses = fileSystem.listStatus(<span class="keyword">new</span> Path(<span class="string">"/"</span>));</span><br><span class="line">    <span class="keyword">for</span> (FileStatus fileStatus : fileStatuses) &#123;</span><br><span class="line">        System.out.println(fileStatus.getPath());</span><br><span class="line">        System.out.println(fileStatus.getOwner());</span><br><span class="line">        System.out.println(<span class="string">"================="</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-6查看文件"><a href="#2-6查看文件" class="headerlink" title="2.6查看文件"></a>2.6查看文件</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lf</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        RemoteIterator&lt;LocatedFileStatus&gt; statusRemoteIterator =</span><br><span class="line">                fileSystem.listFiles(<span class="keyword">new</span> Path(<span class="string">"/"</span>), <span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">while</span> (statusRemoteIterator.hasNext()) &#123;</span><br><span class="line">            LocatedFileStatus fileStatus = statusRemoteIterator.next();</span><br><span class="line"></span><br><span class="line">​        System.out.println(fileStatus.getPath());</span><br><span class="line">​        BlockLocation[] blockLocations = fileStatus.getBlockLocations();</span><br><span class="line">​        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; blockLocations.length; i++) &#123;</span><br><span class="line">​            System.out.println(<span class="string">"第"</span> + i + <span class="string">"块"</span>);</span><br><span class="line">​            String[] hosts = blockLocations[i].getHosts();</span><br><span class="line">​            <span class="keyword">for</span> (String host : hosts) &#123;</span><br><span class="line">​                System.out.print(host + <span class="string">" "</span>);</span><br><span class="line">​            &#125;</span><br><span class="line">​            System.out.println();</span><br><span class="line">​        &#125;</span><br><span class="line"></span><br><span class="line">​        System.out.println(<span class="string">"==================================="</span>);</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-7移动"><a href="#2-7移动" class="headerlink" title="2.7移动"></a>2.7移动</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mv</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        fileSystem.rename(<span class="keyword">new</span> Path(<span class="string">"/1.tar.gz"</span>),</span><br><span class="line">                <span class="keyword">new</span> Path(<span class="string">"/logs/2.tar.gz"</span>));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基本命令/" rel="tag"><i class="fa fa-tag"></i> 基本命令</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/20/Hadoop集群搭建/" rel="next" title="Hadoop集群搭建">
+                <i class="fa fa-chevron-left"></i> Hadoop集群搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zhou ShuCheng</p>
+              <p class="site-description motion-element" itemprop="description">Less interests More interest</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/jlslzsc" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jlslzsc@654210461.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.baidu.com" target="_blank" title="百度">
+                      
+                        <i class="fa fa-fw fa-internet-explorer"></i>百度</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.google.com" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.csdn.net" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-copyright"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、常用命令实操"><span class="nav-number">1.</span> <span class="nav-text">1、常用命令实操</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、HDFS的API操作"><span class="nav-number">2.</span> <span class="nav-text">2、HDFS的API操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1上传"><span class="nav-number">2.1.</span> <span class="nav-text">2.1上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2下载"><span class="nav-number">2.2.</span> <span class="nav-text">2.2下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3删除"><span class="nav-number">2.3.</span> <span class="nav-text">2.3删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4文件名修改"><span class="nav-number">2.4.</span> <span class="nav-text">2.4文件名修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5查看文件和文件夹"><span class="nav-number">2.5.</span> <span class="nav-text">2.5查看文件和文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6查看文件"><span class="nav-number">2.6.</span> <span class="nav-text">2.6查看文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7移动"><span class="nav-number">2.7.</span> <span class="nav-text">2.7移动</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+    
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhou ShuCheng</span>
+
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共7.4k字</span>
+</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+    
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+    
+
+  </div>
+<div class="bg_content">
+  <canvas id="canvas"></canvas>
+</div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+</body>
+</html>

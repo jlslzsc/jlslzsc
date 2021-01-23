@@ -278,6 +278,237 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jlslzsc.github.io/2021/01/23/hdfs基本操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhou ShuCheng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冷眸">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/01/23/hdfs基本操作/" itemprop="url">hdfs基本操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-23T22:17:16+08:00">
+                2021-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1、常用命令实操"><a href="#1、常用命令实操" class="headerlink" title="1、常用命令实操"></a>1、常用命令实操</h1><p>（0）启动Hadoop集群（方便后续的测试）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ sbin/start-dfs.sh</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop103 hadoop-3.1.3]$ sbin/start-yarn.sh</span><br></pre></td></tr></table></figure>
+
+<p>（1）-help：输出这个命令参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -help rm</span><br></pre></td></tr></table></figure>
+
+<p>（2）-ls: 显示目录信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -ls /</span><br></pre></td></tr></table></figure>
+
+<p>（3）-mkdir：在HDFS上创建目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -mkdir -p /sanguo/shuguo</span><br></pre></td></tr></table></figure>
+
+<p>（4）-moveFromLocal：从本地剪切粘贴到HDFS</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ touch kongming.txt</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs  -moveFromLocal  ./kongming.txt  /sanguo/shuguo</span><br></pre></td></tr></table></figure>
+
+<p>（5）-appendToFile：追加一个文件到已经存在的文件末尾</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ touch liubei.txt</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ vi liubei.txt</span><br></pre></td></tr></table></figure>
+
+<p>输入</p>
+<p>san gu mao lu</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -appendToFile liubei.txt /sanguo/shuguo/kongming.txt</span><br></pre></td></tr></table></figure>
+
+<p>（6）-cat：显示文件内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -cat /sanguo/shuguo/kongming.txt</span><br></pre></td></tr></table></figure>
+
+<p>（7）-chgrp 、-chmod、-chown：Linux文件系统中的用法一样，修改文件所属权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs  -chmod  666  /sanguo/shuguo/kongming.txt</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs  -chown  atguigu:atguigu  /sanguo/shuguo/kongming.txt</span><br></pre></td></tr></table></figure>
+
+<p>（8）-copyFromLocal：从本地文件系统中拷贝文件到HDFS路径去</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -copyFromLocal README.txt /</span><br></pre></td></tr></table></figure>
+
+<p>（9）-copyToLocal：从HDFS拷贝到本地</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -copyToLocal /sanguo/shuguo/kongming.txt ./</span><br></pre></td></tr></table></figure>
+
+<p>（10）-cp ：从HDFS的一个路径拷贝到HDFS的另一个路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -cp /sanguo/shuguo/kongming.txt /zhuge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（11）-mv：在HDFS目录中移动文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -mv /zhuge.txt /sanguo/shuguo/</span><br></pre></td></tr></table></figure>
+
+<p>（12）-get：等同于copyToLocal，就是从HDFS下载文件到本地</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -get /sanguo/shuguo/kongming.txt ./</span><br></pre></td></tr></table></figure>
+
+<p>（13）-getmerge：合并下载多个文件，比如HDFS的目录 /user/atguigu/test下有多个文件:log.1, log.2,log.3,…</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -getmerge /user/atguigu/test/* ./zaiyiqi.txt</span><br></pre></td></tr></table></figure>
+
+<p>（14）-put：等同于copyFromLocal</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -put ./zaiyiqi.txt /user/atguigu/test/</span><br></pre></td></tr></table></figure>
+
+<p>（15）-tail：显示一个文件的末尾</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -tail /sanguo/shuguo/kongming.txt</span><br></pre></td></tr></table></figure>
+
+<p>（16）-rm：删除文件或文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -rm /user/atguigu/test/jinlian2.txt</span><br></pre></td></tr></table></figure>
+
+<p>（17）-rmdir：删除空目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -mkdir /test</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -rmdir /test</span><br></pre></td></tr></table></figure>
+
+<p>（18）-du统计文件夹的大小信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -du -s -h /user/atguigu/test</span><br></pre></td></tr></table></figure>
+
+<p>2.7 K  /user/atguigu/test </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -du  -h /user/atguigu/test</span><br></pre></td></tr></table></figure>
+
+<p>1.3 K  /user/atguigu/test/README.txt</p>
+<p>15   /user/atguigu/test/jinlian.txt</p>
+<p>1.4 K  /user/atguigu/test/zaiyiqi.txt</p>
+<p>（19）-setrep：设置HDFS中文件的副本数量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ hadoop fs -setrep 10 /sanguo/shuguo/kongming.txt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>本地-》HDFS<br>    put<br>    copyFromLocal<br>    moveFromLocal<br>    appendToFile<br>HDFS-》HDFS<br>    cp<br>    mv<br>    chown<br>    chgrp<br>    chmod<br>    mkdir<br>    du<br>    df<br>    cat<br>    rm</p>
+<p>HDFS-》本地<br>    get<br>    getmerge<br>    copyToLocal</p>
+</blockquote>
+<h1 id="2、HDFS的API操作"><a href="#2、HDFS的API操作" class="headerlink" title="2、HDFS的API操作"></a>2、HDFS的API操作</h1><h2 id="2-1上传"><a href="#2-1上传" class="headerlink" title="2.1上传"></a>2.1上传</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCopyFromLocalFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException, URISyntaxException </span>&#123;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 1 获取文件系统</span></span><br><span class="line"></span><br><span class="line">​		Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">​		configuration.set(<span class="string">"dfs.replication"</span>, <span class="string">"2"</span>);</span><br><span class="line"></span><br><span class="line">​		FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop102:8020"</span>), configuration, <span class="string">"atguigu"</span>);</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 2 上传文件</span></span><br><span class="line"></span><br><span class="line">​		fs.copyFromLocalFile(<span class="keyword">new</span> Path(<span class="string">"e:/banzhang.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"/banzhang.txt"</span>));</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 3 关闭资源</span></span><br><span class="line"></span><br><span class="line">​		fs.close();</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​		System.out.println(<span class="string">"over"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2下载"><a href="#2-2下载" class="headerlink" title="2.2下载"></a>2.2下载</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCopyToLocalFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException, URISyntaxException</span>&#123;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 1 获取文件系统</span></span><br><span class="line"></span><br><span class="line">​		Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">​		FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop102:8020"</span>), configuration, <span class="string">"atguigu"</span>);</span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 2 执行下载操作</span></span><br><span class="line"></span><br><span class="line">​		<span class="comment">// boolean delSrc 指是否将原文件删除</span></span><br><span class="line"></span><br><span class="line">​		<span class="comment">// Path src 指要下载的文件路径</span></span><br><span class="line"></span><br><span class="line">​		<span class="comment">// Path dst 指将文件下载到的路径</span></span><br><span class="line"></span><br><span class="line">​		<span class="comment">// boolean useRawLocalFileSystem 是否开启文件校验</span></span><br><span class="line"></span><br><span class="line">​		fs.copyToLocalFile(<span class="keyword">false</span>, <span class="keyword">new</span> Path(<span class="string">"/banzhang.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"e:/banhua.txt"</span>), <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​		<span class="comment">// 3 关闭资源</span></span><br><span class="line"></span><br><span class="line">​		fs.close();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3删除"><a href="#2-3删除" class="headerlink" title="2.3删除"></a>2.3删除</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDelete</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException, URISyntaxException</span>&#123;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 1 获取文件系统</span></span><br><span class="line"></span><br><span class="line">​	Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">​	FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop102:8020"</span>), configuration, <span class="string">"atguigu"</span>);</span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 2 执行删除</span></span><br><span class="line"></span><br><span class="line">​	fs.delete(<span class="keyword">new</span> Path(<span class="string">"/0508/"</span>), <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 3 关闭资源</span></span><br><span class="line"></span><br><span class="line">​	fs.close();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4文件名修改"><a href="#2-4文件名修改" class="headerlink" title="2.4文件名修改"></a>2.4文件名修改</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testRename</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException, URISyntaxException</span>&#123;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 1 获取文件系统</span></span><br><span class="line"></span><br><span class="line">​	Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line">​	FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop102:8020"</span>), configuration, <span class="string">"atguigu"</span>); </span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 2 修改文件名称</span></span><br><span class="line"></span><br><span class="line">​	fs.rename(<span class="keyword">new</span> Path(<span class="string">"/banzhang.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"/banhua.txt"</span>));</span><br><span class="line"></span><br><span class="line">​		</span><br><span class="line"></span><br><span class="line">​	<span class="comment">// 3 关闭资源</span></span><br><span class="line"></span><br><span class="line">​	fs.close();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-5查看文件和文件夹"><a href="#2-5查看文件和文件夹" class="headerlink" title="2.5查看文件和文件夹"></a>2.5查看文件和文件夹</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ls</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    FileStatus[] fileStatuses = fileSystem.listStatus(<span class="keyword">new</span> Path(<span class="string">"/"</span>));</span><br><span class="line">    <span class="keyword">for</span> (FileStatus fileStatus : fileStatuses) &#123;</span><br><span class="line">        System.out.println(fileStatus.getPath());</span><br><span class="line">        System.out.println(fileStatus.getOwner());</span><br><span class="line">        System.out.println(<span class="string">"================="</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-6查看文件"><a href="#2-6查看文件" class="headerlink" title="2.6查看文件"></a>2.6查看文件</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lf</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        RemoteIterator&lt;LocatedFileStatus&gt; statusRemoteIterator =</span><br><span class="line">                fileSystem.listFiles(<span class="keyword">new</span> Path(<span class="string">"/"</span>), <span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">while</span> (statusRemoteIterator.hasNext()) &#123;</span><br><span class="line">            LocatedFileStatus fileStatus = statusRemoteIterator.next();</span><br><span class="line"></span><br><span class="line">​        System.out.println(fileStatus.getPath());</span><br><span class="line">​        BlockLocation[] blockLocations = fileStatus.getBlockLocations();</span><br><span class="line">​        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; blockLocations.length; i++) &#123;</span><br><span class="line">​            System.out.println(<span class="string">"第"</span> + i + <span class="string">"块"</span>);</span><br><span class="line">​            String[] hosts = blockLocations[i].getHosts();</span><br><span class="line">​            <span class="keyword">for</span> (String host : hosts) &#123;</span><br><span class="line">​                System.out.print(host + <span class="string">" "</span>);</span><br><span class="line">​            &#125;</span><br><span class="line">​            System.out.println();</span><br><span class="line">​        &#125;</span><br><span class="line"></span><br><span class="line">​        System.out.println(<span class="string">"==================================="</span>);</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-7移动"><a href="#2-7移动" class="headerlink" title="2.7移动"></a>2.7移动</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mv</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        fileSystem.rename(<span class="keyword">new</span> Path(<span class="string">"/1.tar.gz"</span>),</span><br><span class="line">                <span class="keyword">new</span> Path(<span class="string">"/logs/2.tar.gz"</span>));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://jlslzsc.github.io/2021/01/20/Hadoop集群搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1878,189 +2109,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jlslzsc.github.io/2019/09/22/验证码与自动化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhou ShuCheng">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="冷眸">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/22/验证码与自动化/" itemprop="url">验证码与自动化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-22T14:21:02+08:00">
-                2019-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/爬虫/" itemprop="url" rel="index">
-                    <span itemprop="name">爬虫</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="验证码的识别"><a href="#验证码的识别" class="headerlink" title="验证码的识别"></a>验证码的识别</h4><ul>
-<li>url不变，验证码不变<ul>
-<li>请求验证码的地址，获得相应，识别</li>
-</ul>
-</li>
-<li>url不变，验证码会变<ul>
-<li>思路：对方服务器返回验证码的时候，会和每个用户的信息和验证码进行一个对应，之后，在用户发送post请求的时候，会对比post请求中法的验证码和当前用户真正的存储在服务器端的验证码是否相同</li>
-<li>1.实例化session</li>
-<li>2.使用seesion请求登录页面，获取验证码的地址</li>
-<li>3.使用session请求验证码，识别</li>
-<li>4.使用session发送post请求’</li>
-</ul>
-</li>
-<li>使用selenium登录，遇到验证码<ul>
-<li>url不变，验证码不变，同上</li>
-<li>url不变，验证码会变<ul>
-<li>1.selenium请求登录页面，同时拿到验证码的地址</li>
-<li>2.获取登录页面中driver中的cookie，交给requests模块发送验证码的请求，识别</li>
-<li>3.输入验证码，点击登录</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="selenium使用的注意点"><a href="#selenium使用的注意点" class="headerlink" title="selenium使用的注意点"></a>selenium使用的注意点</h3><ul>
-<li>获取文本和获取属性<ul>
-<li>先定位到元素，然后调用<code>.text</code>或者<code>get_attribute</code>方法来去</li>
-</ul>
-</li>
-<li>selenium获取的页面数据是浏览器中elements的内容</li>
-<li>find_element和find_elements的区别<ul>
-<li>find_element返回一个element，如果没有会报错</li>
-<li>find_elements返回一个列表，没有就是空列表</li>
-<li>在判断是否有下一页的时候，使用find_elements来根据结果的列表长度来判断</li>
-</ul>
-</li>
-<li>如果页面中含有iframe、frame，需要先调用driver.switch_to.frame的方法切换到frame中才能定位元素</li>
-<li>selenium请求第一页的时候回等待页面加载完了之后在获取数据，但是在点击翻页之后，hi直接获取数据，此时可能会报错，因为数据还没有加载出来，需要time.sleep(3)</li>
-<li>selenium中find_element_by_class_name智能接收一个class对应的一个值，不能传入多个</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">db.stu.aggregate(&#123;$group:&#123;_id:&quot;$name&quot;,counter:&#123;$sum:2&#125;&#125;&#125;)</span><br><span class="line"></span><br><span class="line">db.stu.aggregate(&#123;$group:&#123;_id:null,counter:&#123;$sum:1&#125;&#125;&#125;)</span><br><span class="line">db.stu.aggregate(&#123;$group:&#123;_id:&quot;$gender&quot;,name:&#123;$push:&quot;$name&quot;&#125;&#125;&#125;)</span><br><span class="line">db.stu.aggregate(&#123;$group:&#123;_id:&quot;$gender&quot;,name:&#123;$push:&quot;$$ROOT&quot;&#125;&#125;&#125;)</span><br><span class="line">db.tv3.aggregate(</span><br><span class="line">  &#123;$group:&#123;_id:&#123;&quot;country&quot;:&quot;$country&quot;,province:&quot;$province&quot;,userid:&quot;$userid&quot;&#125;&#125;&#125;,</span><br><span class="line">  &#123;$group:&#123;_id:&#123;country:&quot;$_id.country&quot;,province:&quot;$_id.province&quot;&#125;,count:&#123;$sum:1&#125;&#125;&#125;,</span><br><span class="line">  &#123;$project:&#123;country:&quot;$_id.country&quot;,province:&quot;$_id.province&quot;,count:&quot;$count&quot;,_id:0&#125;&#125;</span><br><span class="line">  )</span><br><span class="line">db.stu.aggregate(</span><br><span class="line"></span><br><span class="line">  &#123;$match:&#123;age:&#123;$gt:20&#125;&#125;&#125;,</span><br><span class="line">  &#123;$group:&#123;_id:&quot;$gender&quot;,count:&#123;$sum:1&#125;&#125;&#125;</span><br><span class="line">  )</span><br><span class="line">db.t2.aggregate(</span><br><span class="line">  &#123;$unwind:&quot;$size&quot;&#125;</span><br><span class="line">  )</span><br><span class="line">db.t3.aggregate(</span><br><span class="line">  &#123;$unwind:&quot;$tags&quot;&#125;,</span><br><span class="line">  &#123;$group:&#123;_id:null,count:&#123;$sum:1&#125;&#125;&#125;</span><br><span class="line">  )</span><br><span class="line">db.t3.aggregate(</span><br><span class="line">  &#123;$unwind:&#123;path:&quot;$size&quot;,preserveNullAndEmptyArrays:true&#125;&#125;</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2111,7 +2159,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2133,7 +2181,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2238,7 +2286,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共6.3k字</span>
+  <span class="post-count">博客全站共7.4k字</span>
 </div>
 
 
