@@ -278,6 +278,188 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jlslzsc.github.io/2019/09/22/scrapy-相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhou ShuCheng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冷眸">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/22/scrapy-相关/" itemprop="url">scrapy-相关</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-22T14:21:58+08:00">
+                2019-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="logging-模块的使用"><a href="#logging-模块的使用" class="headerlink" title="logging 模块的使用"></a>logging 模块的使用</h3><ul>
+<li>scrapy<ul>
+<li>settings中设置LOG_LEVEL=“WARNING”</li>
+<li>settings中设置LOG_FILE=”./a.log”  #设置日志保存的位置，设置会后终端不会显示日志内容</li>
+<li>import logging,实例化logger的方式在任何文件中使用logger输出内容</li>
+</ul>
+</li>
+<li><code>logger = logging.getLogger(__name__)       logger.warning(item)</code></li>
+<li>普通项目中<ul>
+<li>import logging</li>
+<li>logging.basicConfig(…) #设置日志输出的样式，格式</li>
+<li>实例化一个<code>logger=logging.getLogger(__name__)</code></li>
+<li>在任何py文件中调用logger即可</li>
+</ul>
+</li>
+</ul>
+<p><img src="//jlslzsc.github.io/2019/09/22/scrapy-相关/day08%E6%80%BB%E7%BB%93.jpg" alt="day08总结"></p>
+<h3 id="crawlspider的使用"><a href="#crawlspider的使用" class="headerlink" title="crawlspider的使用"></a>crawlspider的使用</h3><ul>
+<li><p>常见爬虫 scrapy genspider -t crawl 爬虫名 allow_domain</p>
+</li>
+<li><p>指定start_url，对应的响应会进过rules提取url地址</p>
+</li>
+<li><p>完善rules，添加Rule <code>Rule(LinkExtractor(allow=r&#39;/web/site0/tab5240/info\d+\.htm&#39;), callback=&#39;parse_item&#39;),</code></p>
+</li>
+<li><p>注意点:</p>
+<ul>
+<li><p>url地址不完整，crawlspider会自动补充完整之后在请求</p>
+</li>
+<li><p>parse函数不能定义，他有特殊的功能需要实现</p>
+</li>
+<li><p>callback：连接提取器提取出来的url地址对应的响应交给他处理</p>
+</li>
+<li><p>follow：连接提取器提取出来的url地址对应的响应是否继续被rules来过滤</p>
+<p><img src="//jlslzsc.github.io/2019/09/22/scrapy-相关/day10%E6%80%BB%E7%BB%93.jpg" alt="day10总结"></p>
+<p><img src="//jlslzsc.github.io/2019/09/22/scrapy-相关/day09%E6%80%BB%E7%BB%93.jpg" alt="day09总结"></p>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://jlslzsc.github.io/2019/09/22/验证码与自动化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1113,7 +1295,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1135,7 +1317,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1240,7 +1422,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共7.4k字</span>
+  <span class="post-count">博客全站共8.6k字</span>
 </div>
 
 
